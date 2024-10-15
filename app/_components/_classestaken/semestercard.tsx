@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ChevronRight, Plus } from 'lucide-react';
+import { ChevronRight, Plus, Trash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 type TableData = {
@@ -15,34 +15,72 @@ type TableData = {
 
 type Column = keyof TableData;
 
-const SemesterCard = () => {
+type Semester = {
+    name: string;
+    tableData: TableData[];
+};
+
+type SemesterCardProps = {
+    semester: Semester;
+    onUpdate: (updatedSemester: Semester) => void;
+};
+
+const SemesterCard = ({ semester, onUpdate }: SemesterCardProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [tableData, setTableData] = useState(
-        Array.from({ length: 5 }).map((_, rowIndex) => ({
-            col1: `GCI 200`,
-            col2: `3`,
-        }))
-    );
+    const [localSemester, setLocalSemester] = useState(semester);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
 
     const handleInputChange = (rowIndex: number, column: Column, value: string) => {
-        const newData = [...tableData];
-        newData[rowIndex][column] = value;
-        setTableData(newData);
+        const newTableData = [...localSemester.tableData];
+        newTableData[rowIndex][column] = value;
+        const updatedSemester = { ...localSemester, tableData: newTableData };
+        setLocalSemester(updatedSemester);
+        onUpdate(updatedSemester);
+    };
+
+    const handleSemesterNameChange = (value: string) => {
+        const updatedSemester = { ...localSemester, name: value };
+        setLocalSemester(updatedSemester);
+        onUpdate(updatedSemester);
+    };
+
+    const addNewRow = () => {
+        const newTableData = [...localSemester.tableData, { col1: '', col2: '', col3: '' }];
+        const updatedSemester = { ...localSemester, tableData: newTableData };
+        setLocalSemester(updatedSemester);
+        onUpdate(updatedSemester);
+    };
+
+    const handleDeleteRow = (rowIndex: number) => {
+        const newTableData = [...localSemester.tableData];
+        newTableData.splice(rowIndex, 1);
+        const updatedSemester = { ...localSemester, tableData: newTableData };
+        setLocalSemester(updatedSemester);
+        onUpdate(updatedSemester);
     };
 
     return (
         <div className="flex flex-col text-start w-[49%] overflow-scroll">
             <Card className="w-full p-4">
                 <div className="flex flex-row justify-between items-center">
-                    <Button variant="default" className="py-4 px-2" onClick={toggleDropdown}>
+                    <Button variant="ghost" className="py-4 px-2" onClick={toggleDropdown}>
                         <ChevronRight className={`transition-all transform ${isOpen ? 'rotate-90' : ''}`} />
                     </Button>
-                    <h2 className="text-lg font-bold">Fall</h2>
-                    <Button variant="default" className="py-4 px-2"><Plus /></Button>
+                    <h2 className="text-lg font-bold">
+                        <Input
+                            variant="ghost"
+                            type="text"
+                            value={localSemester.name}
+                            className="w-20 p-2 rounded text-center"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleSemesterNameChange(e.target.value)}
+                        />
+                    </h2>
+                    <Button variant="ghost" className="py-4 px-2 w-10" onClick={addNewRow}>
+                        <Trash size={22} />
+                    </Button>
                 </div>
                 {isOpen && (
                     <div className="overflow-auto">
@@ -54,28 +92,38 @@ const SemesterCard = () => {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {tableData.map((row, rowIndex) => (
+                                {localSemester.tableData.map((row, rowIndex) => (
                                     <TableRow key={rowIndex}>
-                                        <TableCell>
+                                        <TableCell className="h-8 p-1 pr-4">
                                             <Input
                                                 variant="ghost"
                                                 type="text"
                                                 value={row.col1}
                                                 onChange={(e) => handleInputChange(rowIndex, 'col1', e.target.value)}
-                                                className="w-full p-2 rounded"
+                                                className="w-full p-2 h-4 rounded"
+                                                placeholder="FFC 100"
                                             />
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="h-8 p-1 w-8 grid grid-flow-col gap-x-2 align-center content-center justify-center">
                                             <Input
                                                 variant="ghost"
                                                 type="text"
                                                 value={row.col2}
                                                 onChange={(e) => handleInputChange(rowIndex, 'col2', e.target.value)}
-                                                className="w-full p-2 rounded"
+                                                className="w-8 p-2 ml-6 h-4 rounded"
+                                                placeholder="3"
                                             />
+                                            <Trash className="cursor-pointer" size={20} onClick={() => handleDeleteRow(rowIndex)} />
                                         </TableCell>
                                     </TableRow>
                                 ))}
+                                <TableRow>
+                                    <TableCell colSpan={2} className="h-8 p-1 pr-4 w-full">
+                                        <div className="flex justify-end w-full">
+                                            <Plus className="cursor-pointer mr-[2px]" size={20} onClick={addNewRow} />
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
                             </TableBody>
                         </Table>
                     </div>
