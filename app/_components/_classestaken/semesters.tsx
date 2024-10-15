@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import SemesterCard from './semestercard';
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react';
@@ -6,7 +6,6 @@ import { Plus } from 'lucide-react';
 type TableData = {
     col1: string;
     col2: string;
-    col3: string;
 };
 
 type Semester = {
@@ -16,24 +15,29 @@ type Semester = {
 
 const Semesters = () => {
     const [semesters, setSemesters] = useState<Semester[]>([]);
+    const isInitialLoad = useRef(true);
 
     useEffect(() => {
-        // Load initial state from localStorage
-        const savedSemesters = localStorage.getItem('semesters');
-        if (savedSemesters) {
-            setSemesters(JSON.parse(savedSemesters));
-        } else {
-            // Initialize with default data if nothing is in localStorage
-            setSemesters([
-                {
-                    name: "FA 24",
-                    tableData: Array.from({ length: 5 }).map((_, rowIndex) => ({
-                        col1: `Row ${rowIndex + 1} Col 1`,
-                        col2: `Row ${rowIndex + 1} Col 2`,
-                        col3: `Row ${rowIndex + 1} Col 3`,
-                    }))
-                }
-            ]);
+        if (isInitialLoad.current) {
+            // Load initial state from localStorage
+            const savedSemesters = localStorage.getItem('semesters');
+            if (savedSemesters) {
+                console.log('Loading semesters from localStorage:', savedSemesters);
+                setSemesters(JSON.parse(savedSemesters));
+            } else {
+                // Initialize with default data if nothing is in localStorage
+                setSemesters([
+                    {
+                        name: "FA 24",
+                        tableData: Array.from({ length: 5 }).map((_, rowIndex) => ({
+                            col1: `Row ${rowIndex + 1} Col 1`,
+                            col2: `Row ${rowIndex + 1} Col 2`,
+                            col3: `Row ${rowIndex + 1} Col 3`,
+                        }))
+                    }
+                ]);
+            }
+            isInitialLoad.current = false;
         }
     }, []);
 
@@ -68,10 +72,16 @@ const Semesters = () => {
         setSemesters(newSemesters);
     };
 
+    const deleteSemester = (index: number) => {
+        const newSemesters = semesters.filter((_, i) => i !== index);
+        setSemesters(newSemesters);
+    };
+    
+
     return (
         <div className="w-full">
             <div className="flex flex-row justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Semesters</h1>
+                <h1 className="text-2xl pl-2 font-bold">Four Year Plan</h1>
                 <Button variant="default" onClick={addNewSemester}>
                     <Plus />
                 </Button>
@@ -82,6 +92,7 @@ const Semesters = () => {
                         key={index}
                         semester={semester}
                         onUpdate={(updatedSemester) => updateSemester(index, updatedSemester)}
+                        onDelete={() => deleteSemester(index)}
                     />
                 ))}
             </div>

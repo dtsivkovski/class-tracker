@@ -17,7 +17,6 @@ export default function Home() {
       </div>
       <div className="flex flex-row items-center justify-center h-full w-full p-2 gap-x-2">
         <div className="flex bg-secondary text-secondary-foreground h-full p-4 flex-col rounded-lg items-center justify-center basis-1/3">
-          <h1 className="text-xl">Four Year Plan</h1>
           <ClassesTaken />
         </div>
         <div className="flex bg-slate-600 h-full flex-col rounded-lg items-center justify-center basis-1/3">

@@ -23,9 +23,10 @@ type Semester = {
 type SemesterCardProps = {
     semester: Semester;
     onUpdate: (updatedSemester: Semester) => void;
+    onDelete: () => void;
 };
 
-const SemesterCard = ({ semester, onUpdate }: SemesterCardProps) => {
+const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [localSemester, setLocalSemester] = useState(semester);
 
@@ -78,7 +79,7 @@ const SemesterCard = ({ semester, onUpdate }: SemesterCardProps) => {
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handleSemesterNameChange(e.target.value)}
                         />
                     </h2>
-                    <Button variant="ghost" className="py-4 px-2 w-10" onClick={addNewRow}>
+                    <Button variant="ghost" className="py-4 px-2 w-10" onClick={onDelete}>
                         <Trash size={22} />
                     </Button>
                 </div>
