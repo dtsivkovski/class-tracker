@@ -1,31 +1,20 @@
 "use client"
 
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronRight, Plus, Trash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { Semester } from '../types';
 
-type TableData = {
-    col1: string;
-    col2: number;
-};
 
-type Column = keyof TableData;
-
-type Semester = {
-    name: string;
-    tableData: TableData[];
-};
-
-type SemesterCardProps = {
+type TransferCardProps = {
     semester: Semester;
     onUpdate: (updatedSemester: Semester) => void;
-    onDelete: () => void;
 };
 
-const TransferCreditCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
+const TransferCreditCard = ({ semester, onUpdate }: TransferCardProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [localSemester, setLocalSemester] = useState(semester);
 

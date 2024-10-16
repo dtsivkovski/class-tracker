@@ -15,11 +15,11 @@ import ImportData from "./_components/_data/importdata";
 export default function Home() {
 
   // embed toggled state
-  const [embedToggled, setEmbedToggled] = useState(false);
+  // const [embedToggled, setEmbedToggled] = useState(false);
 
-  const handleEmbedToggle = () => {
-    setEmbedToggled(!embedToggled);
-  }
+  // const handleEmbedToggle = () => {
+  //   setEmbedToggled(!embedToggled);
+  // }
 
   return (
     <>
@@ -55,20 +55,6 @@ export default function Home() {
             <Checklists />
           </div>
         </ResizablePanel>
-        { embedToggled && (
-        <>
-          <ResizableHandle />
-          <ResizablePanel defaultSize={20}>
-            <div className="flex bg-slate-700 h-full flex-col rounded-lg p-4 mx-2 items-center justify-center basis-1/4">
-              <Link href="https://www.coursicle.com/chapman/" target="_blank">
-              <Button variant="default" className="flex flex-row gap-x-2">
-                <p className="text-lg">Coursicle</p> <ExternalLink className="" />
-              </Button>
-              </Link>
-            </div>
-          </ResizablePanel>
-        </>
-        )}
       </ResizablePanelGroup>
       </div>
     </>

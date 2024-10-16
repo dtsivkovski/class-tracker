@@ -54,7 +54,6 @@ const Semesters = () => {
                     key={0}
                     semester={semesters[0]}
                     onUpdate={(updatedSemester) => updateSemester(0, updatedSemester)}
-                    onDelete={() => deleteSemester(0)}
                 />
                 )}
                 {semesters.map((semester, index) => (
