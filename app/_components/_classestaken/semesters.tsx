@@ -25,17 +25,7 @@ const Semesters = () => {
                 console.log('Loading semesters from localStorage:', savedSemesters);
                 setSemesters(JSON.parse(savedSemesters));
             } else {
-                // Initialize with default data if nothing is in localStorage
-                setSemesters([
-                    {
-                        name: "FA 24",
-                        tableData: Array.from({ length: 5 }).map((_, rowIndex) => ({
-                            col1: `Row ${rowIndex + 1} Col 1`,
-                            col2: `Row ${rowIndex + 1} Col 2`,
-                            col3: `Row ${rowIndex + 1} Col 3`,
-                        }))
-                    }
-                ]);
+                console.log('No semesters found in localStorage');
             }
             isInitialLoad.current = false;
         }
@@ -76,14 +66,15 @@ const Semesters = () => {
         const newSemesters = semesters.filter((_, i) => i !== index);
         setSemesters(newSemesters);
     };
-    
 
     return (
         <div className="w-full">
             <div className="flex flex-row justify-between items-center mb-4">
                 <h1 className="text-2xl pl-2 font-bold">Four Year Plan</h1>
-                <Button variant="default" onClick={addNewSemester}>
-                    <Plus />
+                <Button 
+                    variant="default" 
+                    onClick={addNewSemester}>
+                    <Plus className={semesters.length === 0 ? 'animate-[ping_1s_ease-in-out_infinite]' : ''}/>
                 </Button>
             </div>
             <div className="flex flex-wrap w-full gap-2">
