@@ -1,12 +1,9 @@
 "use client"
 
 import { ModeToggle } from "@/components/modetoggle";
-import { CalendarRange, ExternalLink } from "lucide-react";
+import { CalendarRange } from "lucide-react";
 import ClassesTaken from "./_components/_classestaken/classestaken";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { useState } from "react";
 import Checklists from "./_components/_checklists/checklists";
 import ExportData from "./_components/_data/exportdata";
 import ImportData from "./_components/_data/importdata";

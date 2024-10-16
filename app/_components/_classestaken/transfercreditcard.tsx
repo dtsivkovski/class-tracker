@@ -33,12 +33,6 @@ const TransferCreditCard = ({ semester, onUpdate }: TransferCardProps) => {
         onUpdate(updatedSemester);
     };
 
-    const handleSemesterNameChange = (value: string) => {
-        const updatedSemester = { ...localSemester, name: value };
-        setLocalSemester(updatedSemester);
-        onUpdate(updatedSemester);
-    };
-
     const addNewRow = () => {
         const newTableData = [...localSemester.tableData, { col1: '', col2: 0}];
         const updatedSemester = { ...localSemester, tableData: newTableData };
