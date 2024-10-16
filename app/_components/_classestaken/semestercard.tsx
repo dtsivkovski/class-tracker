@@ -71,7 +71,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
     };
 
     return (
-        <div className="flex flex-col text-start overflow-scroll md:w-52 w-full">
+        <div className="flex flex-col text-start overflow-scroll md:min-w-52 md:w-[24.2%] w-full">
             <Card className="w-full p-4">
                 <div className="flex flex-row justify-between items-center">
                     <Button variant="ghost" className="py-4 px-2" onClick={toggleDropdown}>

@@ -42,13 +42,13 @@ export default function Home() {
       </div>
       <div className="hidden md:flex h-full w-full">
       <ResizablePanelGroup direction="horizontal" className="h-full">
-        <ResizablePanel defaultSize={60}>
+        <ResizablePanel defaultSize={70}>
         <div className="flex bg-secondary text-secondary-foreground h-full p-4 mx-2 flex-col rounded-lg items-center justify-center basis-1/2">
           <ClassesTaken />
         </div>
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel defaultSize={40}>
+        <ResizablePanel defaultSize={30}>
           <div className="flex bg-secondary text-secondary-foreground h-full flex-col rounded-lg p-4 mx-2 items-center justify-center basis-1/4">
             <Checklists />
           </div>
