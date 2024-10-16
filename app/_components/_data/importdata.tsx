@@ -1,18 +1,19 @@
 "use client"
 
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { FileDown } from "lucide-react"
 
 const ImportData = () => {
-    const [file, setFile] = useState(null);
-    const [fileContent, setFileContent] = useState(null);
+    const [file, setFile] = useState<File | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    function handleFileChange(event) {
-        setFile(event.target.files[0]);
+    function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+        if (event.target.files) {
+            setFile(event.target.files[0]);
+        }
     }
 
     function importAllDataFromJSON() {
@@ -21,8 +22,7 @@ const ImportData = () => {
             reader.onload = (e) => {
                 try {
                     let dataUpdated = false;
-                    const json = JSON.parse(e.target.result);
-                    setFileContent(json);
+                    const json = JSON.parse(e.target?.result as string);
                     console.log(json); // Handle the JSON data as needed
                     if (json.semesters) {
                         localStorage.setItem('semesters', JSON.stringify(json.semesters));

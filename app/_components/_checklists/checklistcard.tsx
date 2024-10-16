@@ -14,8 +14,6 @@ type TableData = {
     col2: boolean;
 };
 
-type Column = keyof TableData;
-
 type Checklist = {
     name: string;
     tableData: TableData[];
@@ -35,13 +33,26 @@ const ChecklistCard = ({ checklist, onUpdate, onDelete }: ChecklistCardProps) =>
         setIsOpen(!isOpen);
     };
 
-    const handleInputChange = (rowIndex: number, column: Column, value: string | boolean) => {
+    const handleCourseInputChange = (rowIndex: number, value: string) => {
         const newTableData = [...localChecklist.tableData];
-        newTableData[rowIndex][column] = value;
+        // assign the value to correct column
+        newTableData[rowIndex].col1 = value;
+        // update checklist
         const updatedChecklist = { ...localChecklist, tableData: newTableData };
         setLocalChecklist(updatedChecklist);
         onUpdate(updatedChecklist);
     };
+
+    const handleCheckInputChange = (rowIndex: number, value: boolean | string) => {
+        const newTableData = [...localChecklist.tableData];
+        // assign the value to correct column depending on type
+        if (typeof value === 'boolean') newTableData[rowIndex].col2 = value;
+        else newTableData[rowIndex].col2 = value === 'true';
+        // update checklist
+        const updatedChecklist = { ...localChecklist, tableData: newTableData };
+        setLocalChecklist(updatedChecklist);
+        onUpdate(updatedChecklist);
+    }
 
     const handleChecklistNameChange = (value: string) => {
         const updatedChecklist = { ...localChecklist, name: value };
@@ -124,7 +135,7 @@ const ChecklistCard = ({ checklist, onUpdate, onDelete }: ChecklistCardProps) =>
                                                 variant="ghost"
                                                 type="text"
                                                 value={row.col1}
-                                                onChange={(e) => handleInputChange(rowIndex, 'col1', e.target.value)}
+                                                onChange={(e) => handleCourseInputChange(rowIndex, e.target.value)}
                                                 className={`w-full p-2 h-4 rounded ${row.col2 ? 'line-through text-muted-foreground' : ''}`}
                                                 placeholder="FFC 100"
                                                 onKeyDown={handleFormKeyDown}
@@ -133,7 +144,7 @@ const ChecklistCard = ({ checklist, onUpdate, onDelete }: ChecklistCardProps) =>
                                         <TableCell className="h-8 p-1 w-full grid grid-flow-col gap-x-2 align-center content-center justify-end">
                                             <Checkbox
                                                     checked={row.col2}
-                                                    onCheckedChange={(checked) => handleInputChange(rowIndex, 'col2', checked)}
+                                                    onCheckedChange={(checked) => handleCheckInputChange(rowIndex, checked)}
                                                 />
                                             <Trash className="cursor-pointer" size={20} onClick={() => handleDeleteRow(rowIndex)} />
                                         </TableCell>

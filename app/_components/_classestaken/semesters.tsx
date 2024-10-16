@@ -3,6 +3,7 @@ import SemesterCard from './semestercard';
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react';
 import TransferCreditCard from './transfercreditcard';
+import { Semester } from '../types';
 
 const Semesters = () => {
     const { semesters, setSemesters } = useSemestersContext();

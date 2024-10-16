@@ -7,18 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ChevronRight, Plus, Trash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-
-type TableData = {
-    col1: string;
-    col2: string;
-};
-
-type Column = keyof TableData;
-
-type Semester = {
-    name: string;
-    tableData: TableData[];
-};
+import { Semester } from '../types';
 
 type SemesterCardProps = {
     semester: Semester;
@@ -35,9 +24,12 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
         setIsOpen(!isOpen);
     };
 
-    const handleInputChange = (rowIndex: number, column: Column, value: string) => {
+    const handleInputChange = (rowIndex: number, column: string, value: string) => {
         const newTableData = [...localSemester.tableData];
-        newTableData[rowIndex][column] = value;
+        // assign the value to correct column
+        if (column === 'col1') newTableData[rowIndex].col1 = value;
+        else newTableData[rowIndex].col2 = parseInt(value);
+        // update semester
         const updatedSemester = { ...localSemester, tableData: newTableData };
         setLocalSemester(updatedSemester);
         onUpdate(updatedSemester);
@@ -50,7 +42,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
     };
 
     const addNewRow = () => {
-        const newTableData = [...localSemester.tableData, { col1: '', col2: '', col3: '' }];
+        const newTableData = [...localSemester.tableData, { col1: '', col2: 0}];
         const updatedSemester = { ...localSemester, tableData: newTableData };
         setLocalSemester(updatedSemester);
         onUpdate(updatedSemester);

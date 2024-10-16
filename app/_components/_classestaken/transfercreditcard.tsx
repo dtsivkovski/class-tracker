@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 
 type TableData = {
     col1: string;
-    col2: string;
+    col2: number;
 };
 
 type Column = keyof TableData;
@@ -33,9 +33,12 @@ const TransferCreditCard = ({ semester, onUpdate, onDelete }: SemesterCardProps)
         setIsOpen(!isOpen);
     };
 
-    const handleInputChange = (rowIndex: number, column: Column, value: string) => {
+    const handleInputChange = (rowIndex: number, column: string, value: string) => {
         const newTableData = [...localSemester.tableData];
-        newTableData[rowIndex][column] = value;
+        // assign the value to correct column
+        if (column === 'col1') newTableData[rowIndex].col1 = value;
+        else newTableData[rowIndex].col2 = parseInt(value);
+        // update semester
         const updatedSemester = { ...localSemester, tableData: newTableData };
         setLocalSemester(updatedSemester);
         onUpdate(updatedSemester);
@@ -48,7 +51,7 @@ const TransferCreditCard = ({ semester, onUpdate, onDelete }: SemesterCardProps)
     };
 
     const addNewRow = () => {
-        const newTableData = [...localSemester.tableData, { col1: '', col2: '', col3: '' }];
+        const newTableData = [...localSemester.tableData, { col1: '', col2: 0}];
         const updatedSemester = { ...localSemester, tableData: newTableData };
         setLocalSemester(updatedSemester);
         onUpdate(updatedSemester);
