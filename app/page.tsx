@@ -40,6 +40,7 @@ export default function Home() {
           </TooltipProvider> */}
         </div>
       </div>
+      <div className="hidden md:flex h-full w-full">
       <ResizablePanelGroup direction="horizontal" className="h-full">
         <ResizablePanel defaultSize={60}>
         <div className="flex bg-secondary text-secondary-foreground h-full p-4 mx-2 flex-col rounded-lg items-center justify-center basis-1/2">
@@ -53,6 +54,15 @@ export default function Home() {
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
+      </div>
+      <div className="flex flex-col h-full w-full md:hidden">
+        <div className="flex bg-secondary text-secondary-foreground h-full p-4 mx-2 mb-2 flex-col rounded-lg items-center justify-center basis-1/2">
+          <ClassesTaken />
+        </div>
+        <div className="flex bg-secondary text-secondary-foreground h-full flex-col rounded-lg p-4 mx-2 items-center justify-center basis-1/4">
+            <Checklists />
+        </div>
+      </div>
       </div>
     </>
   );
