@@ -82,7 +82,7 @@ const ChecklistCard = ({ checklist, onUpdate, onDelete }: ChecklistCardProps) =>
                             variant="ghost"
                             type="text"
                             value={localChecklist.name}
-                            className="w-full p-2 rounded text-center"
+                            className="w-48 p-2 rounded text-center"
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handleChecklistNameChange(e.target.value)}
                             onKeyDown={handleFormKeyDown}
                         />
