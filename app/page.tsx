@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen bg-background pb-2">
+      <div className="flex flex-col items-center justify-center md:h-screen h-full bg-background pb-2">
       <div className="flex flex-row items-center justify-between w-full p-2">
         <div className="text-2xl font-bold text-foreground px-2 gap-x-2 flex flex-row cursor-default">
           <CalendarRange className="translate-y-1" />Class Tracker</div>
@@ -55,7 +55,7 @@ export default function Home() {
         </ResizablePanel>
       </ResizablePanelGroup>
       </div>
-      <div className="flex flex-col h-full w-full md:hidden">
+      <div className="flex flex-col w-full md:hidden">
         <div className="flex bg-secondary text-secondary-foreground h-full p-4 mx-2 mb-2 flex-col rounded-lg items-center justify-center basis-1/2">
           <ClassesTaken />
         </div>

@@ -73,7 +73,7 @@ const TransferCreditCard = ({ semester, onUpdate }: TransferCardProps) => {
                         {localSemester.name}
                     </h2>
                     <Button variant="invisible">
-                        Yes
+                        Y
                     </Button>
                 </div>
                 {isOpen && (
