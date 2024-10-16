@@ -1,16 +1,21 @@
+import React from 'react';
 import { useSemestersContext } from './SemestersContext';
 import SemesterCard from './semestercard';
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react';
 import TransferCreditCard from './transfercreditcard';
-import { Semester } from '../types';
+import { Semester, SemesterTableData } from '../types';
 
 const Semesters = () => {
     const { semesters, setSemesters } = useSemestersContext();
 
     const addNewSemester = () => {
         let semesterName = "FA 24";
-        if (semesters.length > 0) {
+        let tableData: SemesterTableData[] = [];
+        if (semesters.length === 0) {
+            semesterName = "Transfer Credits";
+            tableData = [{ col1: "Total Credit", col2: 0 }];
+        } else {
             const lastSemesterName = semesters[semesters.length - 1].name;
             if (lastSemesterName.includes("FA")) {
                 const year = parseInt(lastSemesterName.split(" ")[1]);
@@ -23,7 +28,7 @@ const Semesters = () => {
                 semesterName = `FA ${lastSemesterName.split(" ")[1]}`;
             }
         }
-        setSemesters([...semesters, { name: semesterName, tableData: [] }]);
+        setSemesters([...semesters, { name: semesterName, tableData: tableData }]);
     };
 
     const updateSemester = (index: number, updatedSemester: Semester) => {

@@ -36,11 +36,13 @@ export const SemestersProvider = ({ children }: { children: ReactNode }) => {
         console.log('Loading semesters from localStorage:', savedSemesters);
         if (savedSemesters) {
             setSemesters(JSON.parse(savedSemesters));
-        }
-        else {
-            localStorage.setItem('semesters', JSON.stringify(
-                [{"name":"Transfer Credits","tableData":[{"col1":"Total Credit","col2":"","col3":""}]}]
-            ));
+        } else {
+            const defaultSemester: Semester = {
+                name: "Transfer Credits",
+                tableData: [{ col1: "Total Credit", col2: 0 }]
+            };
+            setSemesters([defaultSemester]);
+            localStorage.setItem('semesters', JSON.stringify([defaultSemester]));
         }
         setIsLoaded(true);
     }, []);
@@ -53,9 +55,9 @@ export const SemestersProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <div id="mainBodyDivForFade" className='fade-in'>
-        <SemestersContext.Provider value={{ semesters, setSemesters }}>
-            {children}
-        </SemestersContext.Provider>
+            <SemestersContext.Provider value={{ semesters, setSemesters }}>
+                {children}
+            </SemestersContext.Provider>
         </div>
     );
 };
