@@ -63,8 +63,14 @@ const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
         onUpdate(updatedSemester);
     };
 
+    const handleFormKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            event.currentTarget.blur();
+        }
+    };
+
     return (
-        <div className="flex flex-col text-start w-[49%] overflow-scroll">
+        <div className="flex flex-col text-start overflow-scroll w-52">
             <Card className="w-full p-4">
                 <div className="flex flex-row justify-between items-center">
                     <Button variant="ghost" className="py-4 px-2" onClick={toggleDropdown}>
@@ -77,6 +83,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
                             value={localSemester.name}
                             className="w-20 p-2 rounded text-center"
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handleSemesterNameChange(e.target.value)}
+                            onKeyDown={handleFormKeyDown}
                         />
                     </h2>
                     <Button variant="ghost" className="py-4 px-2 w-10" onClick={onDelete}>
@@ -88,8 +95,8 @@ const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Course Code</TableHead>
-                                    <TableHead className="w-6">Credits</TableHead>
+                                    <TableHead className="h-6 p-1 pr-4">Course Code</TableHead>
+                                    <TableHead className="h-6 p-1 pr-4 w-6">Credits</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -103,6 +110,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
                                                 onChange={(e) => handleInputChange(rowIndex, 'col1', e.target.value)}
                                                 className="w-full p-2 h-4 rounded"
                                                 placeholder="FFC 100"
+                                                onKeyDown={handleFormKeyDown}
                                             />
                                         </TableCell>
                                         <TableCell className="h-8 p-1 w-8 grid grid-flow-col gap-x-2 align-center content-center justify-center">
@@ -113,6 +121,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
                                                 onChange={(e) => handleInputChange(rowIndex, 'col2', e.target.value)}
                                                 className="w-8 p-2 ml-6 h-4 rounded"
                                                 placeholder="3"
+                                                onKeyDown={handleFormKeyDown}
                                             />
                                             <Trash className="cursor-pointer" size={20} onClick={() => handleDeleteRow(rowIndex)} />
                                         </TableCell>
