@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import ChecklistCard from './checklistcard';
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react';
+import GraduationCheck from './graduationcheck';
 
 type TableData = {
     col1: string;
@@ -65,6 +66,7 @@ const Checklists = () => {
                 </Button>
             </div>
             <div className="flex flex-wrap w-full gap-2">
+                <GraduationCheck />
                 {checklists.map((checklist, index) => (
                     <ChecklistCard
                         key={index}

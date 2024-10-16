@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type TableData = {
@@ -27,21 +29,28 @@ export const useSemestersContext = () => {
 
 export const SemestersProvider = ({ children }: { children: ReactNode }) => {
     const [semesters, setSemesters] = useState<Semester[]>([]);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         const savedSemesters = localStorage.getItem('semesters');
+        console.log('Loading semesters from localStorage:', savedSemesters);
         if (savedSemesters) {
             setSemesters(JSON.parse(savedSemesters));
         }
+        setIsLoaded(true);
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('semesters', JSON.stringify(semesters));
-    }, [semesters]);
+        if (isLoaded) {
+            localStorage.setItem('semesters', JSON.stringify(semesters));
+        }
+    }, [semesters, isLoaded]);
 
     return (
+        <div className='fade-in'>
         <SemestersContext.Provider value={{ semesters, setSemesters }}>
             {children}
         </SemestersContext.Provider>
+        </div>
     );
 };

@@ -59,7 +59,7 @@ export default function Home() {
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={40}>
-          <div className="flex bg-slate-600 h-full flex-col rounded-lg p-4 mx-2 items-center justify-center basis-1/4">
+          <div className="flex bg-secondary text-secondary-foreground h-full flex-col rounded-lg p-4 mx-2 items-center justify-center basis-1/4">
             <Checklists />
           </div>
         </ResizablePanel>

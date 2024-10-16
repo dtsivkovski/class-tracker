@@ -1,45 +1,13 @@
-import { useEffect, useState, useRef } from 'react';
+import { useSemestersContext } from './SemestersContext';
 import SemesterCard from './semestercard';
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react';
 
-type TableData = {
-    col1: string;
-    col2: string;
-};
-
-type Semester = {
-    name: string;
-    tableData: TableData[];
-};
-
 const Semesters = () => {
-    const [semesters, setSemesters] = useState<Semester[]>([]);
-    const isInitialLoad = useRef(true);
-
-    useEffect(() => {
-        if (isInitialLoad.current) {
-            // Load initial state from localStorage
-            const savedSemesters = localStorage.getItem('semesters');
-            if (savedSemesters) {
-                console.log('Loading semesters from localStorage:', savedSemesters);
-                setSemesters(JSON.parse(savedSemesters));
-            } else {
-                console.log('No semesters found in localStorage');
-            }
-            isInitialLoad.current = false;
-        }
-    }, []);
-
-    useEffect(() => {
-        // Save semesters to localStorage whenever it changes
-        localStorage.setItem('semesters', JSON.stringify(semesters));
-    }, [semesters]);
+    const { semesters, setSemesters } = useSemestersContext();
 
     const addNewSemester = () => {
         let semesterName = "FA 24";
-        // if last semester name is fall, then next name is interterm -> spring -> summer -> fall
-        // update year as well if the last semester name is fall
         if (semesters.length > 0) {
             const lastSemesterName = semesters[semesters.length - 1].name;
             if (lastSemesterName.includes("FA")) {
