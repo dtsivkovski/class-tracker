@@ -8,6 +8,8 @@ import Link from "next/link";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
+import Checklists from "./_components/_checklists/checklists";
+import { SemestersProvider } from "./_components/_classestaken/SemestersContext";
 
 
 export default function Home() {
@@ -58,7 +60,7 @@ export default function Home() {
         <ResizableHandle />
         <ResizablePanel defaultSize={40}>
           <div className="flex bg-slate-600 h-full flex-col rounded-lg p-4 mx-2 items-center justify-center basis-1/4">
-            Hello
+            <Checklists />
           </div>
         </ResizablePanel>
         { embedToggled && (
