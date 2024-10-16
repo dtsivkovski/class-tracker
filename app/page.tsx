@@ -1,15 +1,13 @@
 "use client"
 
 import { ModeToggle } from "@/components/modetoggle";
-import { CalendarRange, ExternalLink, FileUp, PanelRight } from "lucide-react";
+import { CalendarRange, ExternalLink } from "lucide-react";
 import ClassesTaken from "./_components/_classestaken/classestaken";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
 import Checklists from "./_components/_checklists/checklists";
-import { SemestersProvider } from "./_components/_classestaken/SemestersContext";
 import ExportData from "./_components/_data/exportdata";
 import ImportData from "./_components/_data/importdata";
 

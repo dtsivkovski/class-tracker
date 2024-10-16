@@ -44,7 +44,7 @@ const Checklists = () => {
     }, [checklists]);
 
     const addNewChecklist = () => {
-        let checklistName = "Major";
+        const checklistName = "Major";
         setChecklists([...checklists, { name: checklistName, tableData: [] }]);
     };
 
