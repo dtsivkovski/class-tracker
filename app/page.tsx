@@ -1,12 +1,14 @@
 "use client"
 
 import { ModeToggle } from "@/components/modetoggle";
-import { CalendarRange } from "lucide-react";
+import { CalendarRange, Github } from "lucide-react";
 import ClassesTaken from "./_components/_classestaken/classestaken";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import Checklists from "./_components/_checklists/checklists";
 import ExportData from "./_components/_data/exportdata";
 import ImportData from "./_components/_data/importdata";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
 
 export default function Home() {
@@ -18,6 +20,10 @@ export default function Home() {
   //   setEmbedToggled(!embedToggled);
   // }
 
+  const handleGithubClick = () => {
+    window.open("https://github.com/dtsivkovski/class-tracker", '_blank');
+  };
+
   return (
     <>
       <div className="flex flex-col items-center justify-center md:h-screen h-full bg-background pb-2">
@@ -28,16 +34,16 @@ export default function Home() {
           <ExportData />
           <ImportData />
           <ModeToggle />
-          {/* <TooltipProvider>
+          <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-            <Button variant="outline" className="text-foreground px-2" onClick={handleEmbedToggle}><PanelRight size={22} /></Button>
+            <Button variant="outline" className="text-foreground px-2" onClick={handleGithubClick}><Github /></Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Toggle third panel</p>
+              <p>GitHub</p>
             </TooltipContent>
           </Tooltip>
-          </TooltipProvider> */}
+          </TooltipProvider>
         </div>
       </div>
       <div className="hidden md:flex h-full w-full">
