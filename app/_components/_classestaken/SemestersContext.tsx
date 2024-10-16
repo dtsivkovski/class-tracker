@@ -37,6 +37,11 @@ export const SemestersProvider = ({ children }: { children: ReactNode }) => {
         if (savedSemesters) {
             setSemesters(JSON.parse(savedSemesters));
         }
+        else {
+            localStorage.setItem('semesters', JSON.stringify(
+                [{"name":"Transfer Credits","tableData":[{"col1":"Total Credit","col2":"","col3":""}]}]
+            ));
+        }
         setIsLoaded(true);
     }, []);
 
@@ -47,7 +52,7 @@ export const SemestersProvider = ({ children }: { children: ReactNode }) => {
     }, [semesters, isLoaded]);
 
     return (
-        <div className='fade-in'>
+        <div id="mainBodyDivForFade" className='fade-in'>
         <SemestersContext.Provider value={{ semesters, setSemesters }}>
             {children}
         </SemestersContext.Provider>

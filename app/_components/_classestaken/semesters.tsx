@@ -2,6 +2,7 @@ import { useSemestersContext } from './SemestersContext';
 import SemesterCard from './semestercard';
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react';
+import TransferCreditCard from './transfercreditcard';
 
 const Semesters = () => {
     const { semesters, setSemesters } = useSemestersContext();
@@ -47,13 +48,26 @@ const Semesters = () => {
                 </Button>
             </div>
             <div className="flex flex-wrap w-full gap-2">
+                {semesters.length > 0 && (
+                <TransferCreditCard
+                    key={0}
+                    semester={semesters[0]}
+                    onUpdate={(updatedSemester) => updateSemester(0, updatedSemester)}
+                    onDelete={() => deleteSemester(0)}
+                />
+                )}
                 {semesters.map((semester, index) => (
+                    <>
+                    {index != 0 && (
                     <SemesterCard
                         key={index}
+                        id={index}
                         semester={semester}
                         onUpdate={(updatedSemester) => updateSemester(index, updatedSemester)}
                         onDelete={() => deleteSemester(index)}
                     />
+                    )}
+                    </>
                 ))}
             </div>
         </div>

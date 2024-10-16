@@ -10,6 +10,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useState } from "react";
 import Checklists from "./_components/_checklists/checklists";
 import { SemestersProvider } from "./_components/_classestaken/SemestersContext";
+import ExportData from "./_components/_data/exportdata";
+import ImportData from "./_components/_data/importdata";
 
 
 export default function Home() {
@@ -28,18 +30,10 @@ export default function Home() {
         <div className="text-2xl font-bold text-foreground px-2 gap-x-2 flex flex-row cursor-default">
           <CalendarRange className="translate-y-1" />Class Tracker</div>
         <div className="flex flex-row gap-x-2">
-          <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-            <Button variant="outline" className="text-secondary hover:bg-background hover:text-card px-2"><FileUp size={22} /></Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Export feature coming soon...</p>
-            </TooltipContent>
-          </Tooltip>
-          </TooltipProvider>
+          <ExportData />
+          <ImportData />
           <ModeToggle />
-          <TooltipProvider>
+          {/* <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
             <Button variant="outline" className="text-foreground px-2" onClick={handleEmbedToggle}><PanelRight size={22} /></Button>
@@ -48,7 +42,7 @@ export default function Home() {
               <p>Toggle third panel</p>
             </TooltipContent>
           </Tooltip>
-          </TooltipProvider>
+          </TooltipProvider> */}
         </div>
       </div>
       <ResizablePanelGroup direction="horizontal" className="h-full">

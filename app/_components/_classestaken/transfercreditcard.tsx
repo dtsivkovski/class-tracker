@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronRight, Plus, Trash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 type TableData = {
     col1: string;
@@ -24,10 +23,9 @@ type SemesterCardProps = {
     semester: Semester;
     onUpdate: (updatedSemester: Semester) => void;
     onDelete: () => void;
-    id: number;
 };
 
-const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) => {
+const TransferCreditCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [localSemester, setLocalSemester] = useState(semester);
 
@@ -70,7 +68,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
             else if (rowIndex === localSemester.tableData.length - 1) {
                 addNewRow();
                 setTimeout(() => {
-                    document.getElementById(`${id}-course-${rowIndex + 1}`)?.focus();
+                    document.getElementById(`course-${rowIndex + 1}`)?.focus();
                 }, 20);
             } else {
                 event.currentTarget.blur();
@@ -79,41 +77,18 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
     };
 
     return (
-        <div className="flex flex-col text-start overflow-scroll w-52">
+        <div className="flex flex-col text-start overflow-scroll w-full">
             <Card className="w-full p-4">
                 <div className="flex flex-row justify-between items-center">
                     <Button variant="ghost" className="py-4 px-2" onClick={toggleDropdown}>
                         <ChevronRight className={`transition-all transform ${isOpen ? 'rotate-90' : ''}`} />
                     </Button>
                     <h2 className="text-lg font-bold">
-                        <Input
-                            variant="ghost"
-                            type="text"
-                            value={localSemester.name}
-                            className="w-20 p-2 rounded text-center"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleSemesterNameChange(e.target.value)}
-                            onKeyDown={(e) => handleFormKeyDown(e, -1)}
-                        />
+                        {localSemester.name}
                     </h2>
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button variant="ghost" className="py-4 px-2 w-10">
-                                <Trash size={22} />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                You will not be able to undo this action. Any courses stored in this semester will be lost.
-                            </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={onDelete} className="bg-destructive text-destructive-foreground">Delete</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                    <Button variant="invisible">
+                        Yes
+                    </Button>
                 </div>
                 {isOpen && (
                     <div className="overflow-auto">
@@ -132,7 +107,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
                                                 variant="ghost"
                                                 type="text"
                                                 value={row.col1}
-                                                id={`${id}-course-${rowIndex}`}
+                                                id={`${localSemester.name}-course-${rowIndex}`}
                                                 onChange={(e) => handleInputChange(rowIndex, 'col1', e.target.value)}
                                                 className="w-full p-2 h-4 rounded"
                                                 placeholder="FFC 100"
@@ -144,9 +119,9 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
                                                 variant="ghost"
                                                 type="text"
                                                 value={row.col2}
-                                                id={`${id}-credits-${rowIndex}`}
+                                                id={`credits-${rowIndex}`}
                                                 onChange={(e) => handleInputChange(rowIndex, 'col2', e.target.value)}
-                                                className="w-8 p-2 ml-6 h-4 rounded"
+                                                className="w-10 p-2 ml-6 h-4 rounded"
                                                 placeholder="3"
                                                 onKeyDown={(e) => handleFormKeyDown(e, rowIndex)}
                                             />
@@ -170,4 +145,4 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
     );
 };
 
-export default SemesterCard;
+export default TransferCreditCard;
