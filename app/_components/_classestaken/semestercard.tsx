@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronRight, Plus, Trash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 type TableData = {
     col1: string;
     col2: string;
-    col3: string;
 };
 
 type Column = keyof TableData;
@@ -63,7 +63,7 @@ const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
         onUpdate(updatedSemester);
     };
 
-    const handleFormKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    const handleFormKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             event.currentTarget.blur();
         }
@@ -86,9 +86,25 @@ const SemesterCard = ({ semester, onUpdate, onDelete }: SemesterCardProps) => {
                             onKeyDown={handleFormKeyDown}
                         />
                     </h2>
-                    <Button variant="ghost" className="py-4 px-2 w-10" onClick={onDelete}>
-                        <Trash size={22} />
-                    </Button>
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button variant="ghost" className="py-4 px-2 w-10">
+                                <Trash size={22} />
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                You will not be able to undo this action. Any courses stored in this semester will be lost.
+                            </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={onDelete} className="bg-destructive text-destructive-foreground">Delete</AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                 </div>
                 {isOpen && (
                     <div className="overflow-auto">

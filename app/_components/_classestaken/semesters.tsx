@@ -73,7 +73,8 @@ const Semesters = () => {
                 <h1 className="text-2xl pl-2 font-bold">Four Year Plan</h1>
                 <Button 
                     variant="default" 
-                    onClick={addNewSemester}>
+                    onClick={addNewSemester}
+                    className="px-2">
                     <Plus className={semesters.length === 0 ? 'animate-[ping_1s_ease-in-out_infinite]' : ''}/>
                 </Button>
             </div>

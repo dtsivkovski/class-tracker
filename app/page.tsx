@@ -29,7 +29,7 @@ export default function Home() {
           <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-            <Button variant="outline" className="text-foreground px-2"><FileUp size={22} /></Button>
+            <Button variant="outline" className="text-secondary hover:bg-background hover:text-card px-2"><FileUp size={22} /></Button>
             </TooltipTrigger>
             <TooltipContent>
               <p>Export feature coming soon...</p>
