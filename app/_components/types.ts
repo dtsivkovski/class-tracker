@@ -12,6 +12,7 @@ export interface ChecklistTableData {
 
 // Define the Semester type
 export interface Semester {
+    id: string;
     name: string;
     tableData: SemesterTableData[];
 }
