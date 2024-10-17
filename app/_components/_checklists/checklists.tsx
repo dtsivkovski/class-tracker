@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import ChecklistCard from './checklistcard';
 import { Button } from "@/components/ui/button";
-import { Plus, Sparkles } from 'lucide-react';
+import { Copy, Plus, Sparkles } from 'lucide-react';
 import GraduationCheck from './graduationcheck';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Input } from '@/components/ui/input';
 import { Checklist } from '../types';
 
@@ -88,25 +87,20 @@ const Checklists = () => {
                             </DialogTrigger>
                             <DialogContent className="w-fit">
                                 <DialogHeader>
-                                    <DialogTitle>Paste checklist using AI</DialogTitle>
+                                    <DialogTitle>Paste checklist using AI <span className="bg-primary text-primary-foreground py-1 px-2 ml-1 cursor-default rounded-full">Beta</span></DialogTitle>
                                     <DialogDescription>
                                         Use ChatGPT to generate a checklist using the following prompt along with your major or minor from the catalog. Click to copy the prompt to your clipboard.
                                     </DialogDescription>
                                     <div className="flex flex-col items-center">
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger className="text-left my-2 w-full">
-                                                    <pre 
-                                                        className="bg-secondary text-secondary-foreground p-2 text-xs w-full max-h-20 text-ellipsis rounded-sm cursor-pointer"
-                                                        onClick={copyToClipboard}>
-                                                        I am going to give you a major/minor curriculum. I want yo...
-                                                    </pre>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>Click to clipboard</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
+                                        <div className="flex flex-row items-center gap-x-2 mx-0 w-full">
+                                        <pre 
+                                            className="bg-secondary text-secondary-foreground p-2 text-center justify-items-center text-xs h-full w-full max-h-20 text-ellipsis rounded-sm cursor-pointer flex items-center justify-center"
+                                            onClick={copyToClipboard}>
+                                            I am going to give you a major/minor curriculum...
+                                        </pre>
+                                        <Button variant="secondary" title="Copy to clipboard" onClick={copyToClipboard}><Copy size={20} /></Button>
+                                        </div>
+
                                         <Input 
                                             type="text" 
                                             placeholder="Paste checklist here"
