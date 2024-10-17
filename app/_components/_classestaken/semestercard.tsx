@@ -28,7 +28,10 @@ const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) =
         const newTableData = [...localSemester.tableData];
         // assign the value to correct column
         if (column === 'col1') newTableData[rowIndex].col1 = value;
-        else newTableData[rowIndex].col2 = parseInt(value);
+        else {
+            const parsedValue = parseInt(value);
+            newTableData[rowIndex].col2 = isNaN(parsedValue) ? 0 : parsedValue;
+        }
         // update semester
         const updatedSemester = { ...localSemester, tableData: newTableData };
         setLocalSemester(updatedSemester);

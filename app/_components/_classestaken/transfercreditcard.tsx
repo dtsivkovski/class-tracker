@@ -26,7 +26,10 @@ const TransferCreditCard = ({ semester, onUpdate }: TransferCardProps) => {
         const newTableData = [...localSemester.tableData];
         // assign the value to correct column
         if (column === 'col1') newTableData[rowIndex].col1 = value;
-        else newTableData[rowIndex].col2 = parseInt(value);
+        else {
+            const parsedValue = parseInt(value);
+            newTableData[rowIndex].col2 = isNaN(parsedValue) ? 0 : parsedValue;
+        }
         // update semester
         const updatedSemester = { ...localSemester, tableData: newTableData };
         setLocalSemester(updatedSemester);
@@ -108,7 +111,7 @@ const TransferCreditCard = ({ semester, onUpdate }: TransferCardProps) => {
                                                 id={`credits-${rowIndex}`}
                                                 onChange={(e) => handleInputChange(rowIndex, 'col2', e.target.value)}
                                                 className="w-10 p-2 ml-6 h-4 rounded"
-                                                placeholder="3"
+                                                placeholder="0"
                                                 onKeyDown={(e) => handleFormKeyDown(e, rowIndex)}
                                             />
                                             <Trash className="cursor-pointer" size={20} onClick={() => handleDeleteRow(rowIndex)} />
