@@ -13,7 +13,7 @@ type SemesterCardProps = {
     semester: Semester;
     onUpdate: (updatedSemester: Semester) => void;
     onDelete: () => void;
-    id: number;
+    id: string;
 };
 
 const SemesterCard = ({ semester, onUpdate, onDelete, id }: SemesterCardProps) => {
